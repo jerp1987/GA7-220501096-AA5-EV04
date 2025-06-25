@@ -1,0 +1,55 @@
+# CrudUsuarioPHP_Evidencia  
+**GA7-220501096-AA5-EV01**
+
+Sistema CRUD de usuarios desarrollado en **PHP + MySQL** con interfaz responsiva en **HTML, Tailwind CSS y JavaScript**.  
+Permite registrar usuarios, iniciar sesión y acceder a un *dashboard* protegido. El proyecto hace parte de la evidencia – Servicio Nacional de Aprendizaje (SENA).
+
+---
+
+## Tabla de contenidos
+1. [Características](#características)  
+2. [Requisitos](#requisitos)  
+3. [Instalación local](#instalación-local)  
+4. [Configuración de base de datos](#configuración-de-base-de-datos)  
+5. [Estructura del proyecto](#estructura-del-proyecto)  
+6. [Uso](#uso)  
+7. [Evidencias incluidas](#evidencias-incluidas)  
+8. [Autor](#autor)  
+9. [Licencia](#licencia)
+
+---
+
+## Características
+- Registro de nuevos usuarios con validación de campos.  
+- Inicio de sesión seguro mediante PHP y sesiones.  
+- Panel (*dashboard*) accesible solo a usuarios autenticados.  
+- Desconexión (logout) con destrucción de sesión.  
+- Peticiones **AJAX fetch** para evitar recargas completas de página.  
+- Estilos modernos con **Tailwind CSS** (CDN). :contentReference[oaicite:0]{index=0}
+
+---
+
+## Requisitos
+| Software                 | Versión recomendada |
+|--------------------------|---------------------|
+| PHP                      | ≥ 8.0 |
+| MySQL / MariaDB          | ≥ 10.4 |
+| Servidor local (XAMPP)   | Última estable |
+| Navegador moderno        | Chrome, Firefox, Edge |
+
+---
+
+## Instalación local
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/jerp1987/CrudUsuarioPHP_Evidencia-GA7-220501096-AA5-EV01.git
+cd CrudUsuarioPHP_Evidencia-GA7-220501096-AA5-EV01
+
+# 2. Copiar la carpeta al directorio público de Apache
+#    (ejemplo con XAMPP en Windows)
+cp -r . "C:\xampp\htdocs\CrudUsuarioPHP_Evidencia"
+
+# 3. Crear la base de datos (ver script en la sección siguiente)
+
+# 4. Ajustar credenciales en conexion.php
+# 5. Iniciar Apache y MySQL desde XAMPP Control Panel
