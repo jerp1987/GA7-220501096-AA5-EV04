@@ -1,62 +1,58 @@
 
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro e Inicio de Sesión</title>
-    <!-- Incluye Tailwind CSS para un estilo moderno y responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos personalizados si son necesarios, aunque se prefiere Tailwind */
         body {
-            font-family: 'Inter', sans-serif; /* Fuente Inter */
-            background-color: #f0f4f8; /* Un color de fondo suave */
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Ocupa al menos el 100% de la altura de la vista */
+            min-height: 100vh;
             margin: 0;
             padding: 20px;
-            box-sizing: border-box; /* Incluye padding en el ancho/alto */
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 md:p-8">
     <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 max-w-4xl w-full">
-
-        <!-- Formulario de Registro de Usuario -->
+        <!-- Registro -->
         <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full md:w-1/2">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro de Usuario</h2>
             <form id="registroForm" class="space-y-4">
                 <input type="text" name="nombre_completo" placeholder="Nombres y Apellidos" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
                 <input type="email" name="correo" placeholder="Correo electrónico" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
                 <input type="password" name="clave" placeholder="Contraseña" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
                 <button type="submit" id="btnRegistro"
-                        class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 ease-in-out shadow-md">
+                        class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 transition duration-200 shadow-md">
                     Registrar
                 </button>
             </form>
-            <!-- Contenedor para mensajes de registro -->
             <div id="registroMensaje" class="mt-4 text-center text-sm font-medium"></div>
         </div>
 
-        <!-- Formulario de Inicio de Sesión -->
+        <!-- Login -->
         <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full md:w-1/2">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Inicio de Sesión</h2>
             <form id="loginForm" class="space-y-4">
                 <input type="email" name="correo" placeholder="Correo electrónico" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                 <input type="password" name="clave" placeholder="Contraseña" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                 <button type="submit" id="btnLogin"
-                        class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 ease-in-out shadow-md">
+                        class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition duration-200 shadow-md">
                     Iniciar Sesión
                 </button>
             </form>
-            <!-- Contenedor para mensajes de inicio de sesión -->
             <div id="loginMensaje" class="mt-4 text-center text-sm font-medium"></div>
         </div>
     </div>
@@ -64,109 +60,75 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const registroForm = document.getElementById('registroForm');
-            const registroMensaje = document.getElementById('registroMensaje');
-            const btnRegistro = document.getElementById('btnRegistro');
-
             const loginForm = document.getElementById('loginForm');
+            const registroMensaje = document.getElementById('registroMensaje');
             const loginMensaje = document.getElementById('loginMensaje');
+            const btnRegistro = document.getElementById('btnRegistro');
             const btnLogin = document.getElementById('btnLogin');
 
-            // Función genérica para mostrar mensajes y limpiarlos
             function showMessage(element, message, isSuccess) {
                 element.textContent = message;
                 element.className = `mt-4 text-center text-sm font-medium ${isSuccess ? 'text-green-600' : 'text-red-600'}`;
-                // Limpia el mensaje después de 3 segundos
                 setTimeout(() => {
                     element.textContent = '';
-                    element.className = 'mt-4 text-center text-sm font-medium'; // Resetea la clase
+                    element.className = 'mt-4 text-center text-sm font-medium';
                 }, 3000);
             }
 
-            // Manejar el envío del formulario de registro
             registroForm.addEventListener('submit', async (event) => {
-                event.preventDefault(); // Previene el envío tradicional del formulario
+                event.preventDefault();
+                btnRegistro.disabled = true;
+                btnRegistro.textContent = 'Registrando...';
 
-                btnRegistro.disabled = true; // Deshabilita el botón
-                btnRegistro.textContent = 'Registrando...'; // Muestra estado de carga
-
-                const formData = new FormData(registroForm); // Obtiene los datos del formulario
-                const url = 'registrar.php'; // URL de tu script de registro
-
+                const formData = new FormData(registroForm);
                 try {
-                    const response = await fetch(url, {
-                        method: 'POST', // Usa el método POST
-                        body: formData // Envía los datos del formulario
-                    });
-
-                    // Siempre verifica si la respuesta de red fue exitosa (status 200-299)
+                    const response = await fetch('registrar.php', { method: 'POST', body: formData });
                     if (!response.ok) {
-                        // Si la respuesta no es OK (ej. 500 Internal Server Error),
-                        // intenta leer el error del servidor si es posible
-                        const errorText = await response.text(); // Leer como texto para ver errores de PHP
+                        const errorText = await response.text();
                         console.error('Error HTTP:', response.status, errorText);
                         showMessage(registroMensaje, `Error del servidor: ${response.status}`, false);
-                        return; // Detiene la ejecución
+                        return;
                     }
-
-                    const data = await response.json(); // Parsea la respuesta como JSON
-
-                    // Muestra el mensaje en el div correspondiente
+                    const data = await response.json();
                     showMessage(registroMensaje, data.message, data.success);
-
-                    if (data.success) {
-                        registroForm.reset(); // Limpia el formulario si el registro fue exitoso
-                    }
+                    if (data.success) registroForm.reset();
                 } catch (error) {
                     console.error('Error al registrar:', error);
                     showMessage(registroMensaje, 'Ocurrió un error de conexión al registrar.', false);
                 } finally {
-                    btnRegistro.disabled = false; // Habilita el botón de nuevo
-                    btnRegistro.textContent = 'Registrar'; // Restaura el texto del botón
+                    btnRegistro.disabled = false;
+                    btnRegistro.textContent = 'Registrar';
                 }
             });
 
-            // Manejar el envío del formulario de inicio de sesión
             loginForm.addEventListener('submit', async (event) => {
-                event.preventDefault(); // Previene el envío tradicional del formulario
+                event.preventDefault();
+                btnLogin.disabled = true;
+                btnLogin.textContent = 'Iniciando sesión...';
 
-                btnLogin.disabled = true; // Deshabilita el botón
-                btnLogin.textContent = 'Iniciando sesión...'; // Muestra estado de carga
-
-                const formData = new FormData(loginForm); // Obtiene los datos del formulario
-                const url = 'login.php'; // URL de tu script de inicio de sesión
-
+                const formData = new FormData(loginForm);
                 try {
-                    const response = await fetch(url, {
-                        method: 'POST', // Usa el método POST
-                        body: formData // Envía los datos del formulario
-                    });
-
-                    // Siempre verifica si la respuesta de red fue exitosa
+                    const response = await fetch('login.php', { method: 'POST', body: formData });
                     if (!response.ok) {
                         const errorText = await response.text();
                         console.error('Error HTTP:', response.status, errorText);
                         showMessage(loginMensaje, `Error del servidor: ${response.status}`, false);
                         return;
                     }
-
-                    const data = await response.json(); // Parsea la respuesta como JSON
-
-                    // Muestra el mensaje en el div correspondiente
+                    const data = await response.json();
                     showMessage(loginMensaje, data.message, data.success);
-
                     if (data.success && data.redirect) {
-                        loginForm.reset(); // Limpia el formulario
-                        // Redirige al usuario a la página de dashboard si la autenticación fue exitosa
+                        loginForm.reset();
                         setTimeout(() => {
                             window.location.href = data.redirect;
-                        }, 1500); // Pequeño retraso para que el usuario vea el mensaje
+                        }, 1500);
                     }
                 } catch (error) {
                     console.error('Error al iniciar sesión:', error);
                     showMessage(loginMensaje, 'Ocurrió un error de conexión al iniciar sesión.', false);
                 } finally {
-                    btnLogin.disabled = false; // Habilita el botón de nuevo
-                    btnLogin.textContent = 'Iniciar Sesión'; // Restaura el texto del botón
+                    btnLogin.disabled = false;
+                    btnLogin.textContent = 'Iniciar Sesión';
                 }
             });
         });

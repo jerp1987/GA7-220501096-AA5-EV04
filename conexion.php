@@ -1,17 +1,22 @@
 <?php
 // conexion.php
-// Conexión a la base de datos MySQL
+// Conexión segura a la base de datos MySQL usando MySQLi
 
-$host = "localhost";
-$usuario = "root"; // Asegúrate de que este sea el usuario de tu base de datos
-$contrasena = ""; // Asegúrate de que esta sea la contraseña de tu base de datos (vacía por defecto en XAMPP para 'root')
-$base_de_datos = "crud_php"; // Asegúrate de que tu base de datos se llama 'crud_php'
+$host = 'localhost';
+$usuario = 'root';
+$contrasena = '';
+$base_de_datos = 'crudusuario';
 
+// Crear la conexión
 $conexion = new mysqli($host, $usuario, $contrasena, $base_de_datos);
 
-// Verifica si la conexión fue exitosa
-if ($conexion->connect_error) {
-    // Si hay un error de conexión, detiene la ejecución y muestra el error
-    die("Error en la conexión: " . $conexion->connect_error);
+// Verificar si hubo error de conexión
+if ($conexion->connect_errno) {
+    error_log("Error de conexión a la base de datos: " . $conexion->connect_error);
+    die("❌ No se pudo conectar a la base de datos.");
 }
+
+// Opcional: establecer codificación de caracteres
+$conexion->set_charset("utf8mb4");
 ?>
+

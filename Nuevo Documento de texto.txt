@@ -1,12 +1,13 @@
 # CrudUsuarioPHP_Evidencia  
-**GA7-220501096-AA5-EV01**
+**Evidencia: GA7-220501096-AA5-EV01**
 
-Sistema CRUD de usuarios desarrollado en **PHP + MySQL** con interfaz responsiva en **HTML, Tailwind CSS y JavaScript**.  
-Permite registrar usuarios, iniciar sesión y acceder a un *dashboard* protegido. El proyecto hace parte de la evidencia – Servicio Nacional de Aprendizaje (SENA).
+Sistema CRUD de usuarios desarrollado con **PHP** y **MySQL**, interfaz responsiva en **HTML + Tailwind CSS + JavaScript (Fetch)**.  
+Este proyecto permite registrar usuarios, iniciar sesión de forma segura y acceder a un panel protegido (*dashboard*).  
+Forma parte de una evidencia del proceso formativo del **SENA**.
 
 ---
 
-## Tabla de contenidos
+## 📑 Tabla de contenidos
 1. [Características](#características)  
 2. [Requisitos](#requisitos)  
 3. [Instalación local](#instalación-local)  
@@ -19,37 +20,43 @@ Permite registrar usuarios, iniciar sesión y acceder a un *dashboard* protegido
 
 ---
 
-## Características
-- Registro de nuevos usuarios con validación de campos.  
-- Inicio de sesión seguro mediante PHP y sesiones.  
-- Panel (*dashboard*) accesible solo a usuarios autenticados.  
-- Desconexión (logout) con destrucción de sesión.  
-- Peticiones **AJAX fetch** para evitar recargas completas de página.  
-- Estilos modernos con **Tailwind CSS** (CDN). :contentReference[oaicite:0]{index=0}
+## 🚀 Características
+
+- Registro de usuarios con validación de campos.
+- Inicio de sesión seguro con PHP y `password_hash()`.
+- Uso de sesiones para proteger páginas internas.
+- Interfaz moderna con **Tailwind CSS** (vía CDN).
+- Peticiones asincrónicas usando `fetch()` (sin recargar la página).
+- Mensajes dinámicos de validación y errores.
+- Redirección automática al *dashboard* tras autenticación.
+- Cierre de sesión que destruye la sesión y redirige al inicio.
 
 ---
 
-## Requisitos
-| Software                 | Versión recomendada |
-|--------------------------|---------------------|
-| PHP                      | ≥ 8.0 |
-| MySQL / MariaDB          | ≥ 10.4 |
-| Servidor local (XAMPP)   | Última estable |
-| Navegador moderno        | Chrome, Firefox, Edge |
+## 🧰 Requisitos
+
+| Software                 | Versión recomendada     |
+|--------------------------|-------------------------|
+| PHP                      | 8.0 o superior           |
+| MySQL / MariaDB          | 10.4 o superior          |
+| XAMPP (Apache + MySQL)   | Última versión estable  |
+| Navegador moderno        | Chrome, Firefox, Edge   |
 
 ---
 
-## Instalación local
+## 💻 Instalación local
+
 ```bash
 # 1. Clonar el repositorio
 git clone https://github.com/jerp1987/CrudUsuarioPHP_Evidencia-GA7-220501096-AA5-EV01.git
-cd CrudUsuarioPHP_Evidencia-GA7-220501096-AA5-EV01
 
-# 2. Copiar la carpeta al directorio público de Apache
-#    (ejemplo con XAMPP en Windows)
-cp -r . "C:\xampp\htdocs\CrudUsuarioPHP_Evidencia"
+# 2. Mover la carpeta clonada a htdocs (XAMPP)
+# Ejemplo en Windows:
+move CrudUsuarioPHP_Evidencia-GA7-220501096-AA5-EV01 C:\xampp\htdocs\CrudUsuarioPHP
 
-# 3. Crear la base de datos (ver script en la sección siguiente)
+# 3. Iniciar XAMPP y levantar Apache y MySQL
 
-# 4. Ajustar credenciales en conexion.php
-# 5. Iniciar Apache y MySQL desde XAMPP Control Panel
+# 4. Crear la base de datos (ver sección siguiente)
+
+# 5. Abrir en navegador: http://localhost/CrudUsuarioPHP/index.html
+
