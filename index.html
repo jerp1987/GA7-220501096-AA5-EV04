@@ -1,137 +1,137 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro e Inicio de Sesión</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro e Inicio de Sesión</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 md:p-8">
-    <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 max-w-4xl w-full">
-        <!-- Registro -->
-        <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full md:w-1/2">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro de Usuario</h2>
-            <form id="registroForm" class="space-y-4">
-                <input type="text" name="nombre_completo" placeholder="Nombres y Apellidos" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
-                <input type="email" name="correo" placeholder="Correo electrónico" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
-                <input type="password" name="clave" placeholder="Contraseña" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
-                <button type="submit" id="btnRegistro"
-                        class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 transition duration-200 shadow-md">
-                    Registrar
-                </button>
-            </form>
-            <div id="registroMensaje" class="mt-4 text-center text-sm font-medium"></div>
-        </div>
+  <div class="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 max-w-4xl w-full">
 
-        <!-- Login -->
-        <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full md:w-1/2">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Inicio de Sesión</h2>
-            <form id="loginForm" class="space-y-4">
-                <input type="email" name="correo" placeholder="Correo electrónico" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                <input type="password" name="clave" placeholder="Contraseña" required
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
-                <button type="submit" id="btnLogin"
-                        class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition duration-200 shadow-md">
-                    Iniciar Sesión
-                </button>
-            </form>
-            <div id="loginMensaje" class="mt-4 text-center text-sm font-medium"></div>
-        </div>
+    <!-- Registro -->
+    <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full md:w-1/2">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registro de Usuario</h2>
+      <form id="registroForm" class="space-y-4">
+        <input type="text" name="nombre" placeholder="Nombres y Apellidos" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
+        <input type="email" name="correo" placeholder="Correo electrónico" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
+        <input type="password" name="clave" placeholder="Contraseña" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
+        <button type="submit" id="btnRegistro" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 transition duration-200 shadow-md">
+          Registrar
+        </button>
+        <div id="spinnerRegistro" class="text-center hidden"><span class="spinner"></span></div>
+      </form>
+      <div id="registroMensaje" class="mt-4 text-center text-sm font-medium"></div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const registroForm = document.getElementById('registroForm');
-            const loginForm = document.getElementById('loginForm');
-            const registroMensaje = document.getElementById('registroMensaje');
-            const loginMensaje = document.getElementById('loginMensaje');
-            const btnRegistro = document.getElementById('btnRegistro');
-            const btnLogin = document.getElementById('btnLogin');
+    <!-- Login -->
+    <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl w-full md:w-1/2">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Inicio de Sesión</h2>
+      <form id="loginForm" class="space-y-4">
+        <input type="email" name="correo" placeholder="Correo electrónico" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+        <input type="password" name="clave" placeholder="Contraseña" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+        <button type="submit" id="btnLogin" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 transition duration-200 shadow-md">
+          Iniciar Sesión
+        </button>
+        <div id="spinnerLogin" class="text-center hidden"><span class="spinner"></span></div>
+      </form>
+      <div id="loginMensaje" class="mt-4 text-center text-sm font-medium"></div>
+    </div>
+  </div>
 
-            function showMessage(element, message, isSuccess) {
-                element.textContent = message;
-                element.className = `mt-4 text-center text-sm font-medium ${isSuccess ? 'text-green-600' : 'text-red-600'}`;
-                setTimeout(() => {
-                    element.textContent = '';
-                    element.className = 'mt-4 text-center text-sm font-medium';
-                }, 3000);
-            }
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const registroForm = document.getElementById('registroForm');
+      const loginForm = document.getElementById('loginForm');
+      const registroMensaje = document.getElementById('registroMensaje');
+      const loginMensaje = document.getElementById('loginMensaje');
+      const btnRegistro = document.getElementById('btnRegistro');
+      const btnLogin = document.getElementById('btnLogin');
+      const spinnerRegistro = document.getElementById('spinnerRegistro');
+      const spinnerLogin = document.getElementById('spinnerLogin');
 
-            registroForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                btnRegistro.disabled = true;
-                btnRegistro.textContent = 'Registrando...';
+      function showMessage(element, message, isSuccess) {
+        element.textContent = message;
+        element.className = `mt-4 text-center text-sm font-medium ${isSuccess ? 'text-green-600' : 'text-red-600'}`;
+        setTimeout(() => {
+          element.textContent = '';
+          element.className = 'mt-4 text-center text-sm font-medium';
+        }, 4000);
+      }
 
-                const formData = new FormData(registroForm);
-                try {
-                    const response = await fetch('registrar.php', { method: 'POST', body: formData });
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        console.error('Error HTTP:', response.status, errorText);
-                        showMessage(registroMensaje, `Error del servidor: ${response.status}`, false);
-                        return;
-                    }
-                    const data = await response.json();
-                    showMessage(registroMensaje, data.message, data.success);
-                    if (data.success) registroForm.reset();
-                } catch (error) {
-                    console.error('Error al registrar:', error);
-                    showMessage(registroMensaje, 'Ocurrió un error de conexión al registrar.', false);
-                } finally {
-                    btnRegistro.disabled = false;
-                    btnRegistro.textContent = 'Registrar';
-                }
-            });
+      registroForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        btnRegistro.disabled = true;
+        spinnerRegistro.classList.remove('hidden');
 
-            loginForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-                btnLogin.disabled = true;
-                btnLogin.textContent = 'Iniciando sesión...';
+        const formData = new FormData(registroForm);
 
-                const formData = new FormData(loginForm);
-                try {
-                    const response = await fetch('login.php', { method: 'POST', body: formData });
-                    if (!response.ok) {
-                        const errorText = await response.text();
-                        console.error('Error HTTP:', response.status, errorText);
-                        showMessage(loginMensaje, `Error del servidor: ${response.status}`, false);
-                        return;
-                    }
-                    const data = await response.json();
-                    showMessage(loginMensaje, data.message, data.success);
-                    if (data.success && data.redirect) {
-                        loginForm.reset();
-                        setTimeout(() => {
-                            window.location.href = data.redirect;
-                        }, 1500);
-                    }
-                } catch (error) {
-                    console.error('Error al iniciar sesión:', error);
-                    showMessage(loginMensaje, 'Ocurrió un error de conexión al iniciar sesión.', false);
-                } finally {
-                    btnLogin.disabled = false;
-                    btnLogin.textContent = 'Iniciar Sesión';
-                }
-            });
-        });
-    </script>
+        try {
+          const res = await fetch('registrar.php', { method: 'POST', body: formData });
+          const data = await res.json();
+          showMessage(registroMensaje, data.message, data.success);
+          if (data.success) registroForm.reset();
+        } catch (err) {
+          console.error(err);
+          showMessage(registroMensaje, 'Error al conectar con el servidor.', false);
+        } finally {
+          btnRegistro.disabled = false;
+          spinnerRegistro.classList.add('hidden');
+        }
+      });
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        btnLogin.disabled = true;
+        spinnerLogin.classList.remove('hidden');
+
+        const formData = new FormData(loginForm);
+
+        try {
+          const res = await fetch('login.php', { method: 'POST', body: formData });
+          const data = await res.json();
+          showMessage(loginMensaje, data.message, data.success);
+          if (data.success && data.redirect) {
+            loginForm.reset();
+            setTimeout(() => {
+              window.location.href = data.redirect;
+            }, 2000);
+          }
+        } catch (err) {
+          console.error(err);
+          showMessage(loginMensaje, 'Error al conectar con el servidor.', false);
+        } finally {
+          btnLogin.disabled = false;
+          spinnerLogin.classList.add('hidden');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

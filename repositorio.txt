@@ -1,1 +1,12 @@
-https://github.com/tu_usuario/CrudUsuarioPHP
+Repositorio del proyecto CrudUsuarioPHP_Evidencia - GA7-220501096-AA5-EV01
+
+URL del repositorio:
+https://github.com/jerp1987/CrudUsuarioPHP_Evidencia-GA7-220501096-AA5-EV01
+
+Este repositorio contiene el código fuente completo del sistema de registro e inicio de sesión de usuarios desarrollado en PHP, JavaScript, HTML y Tailwind CSS, como parte de la evidencia final para el SENA.
+
+Incluye:
+- Formularios de registro e inicio de sesión
+- Conexión segura a base de datos MySQL
+- Dashboard protegido con sesión
+- Código comentado y estructurado

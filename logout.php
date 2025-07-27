@@ -1,13 +1,12 @@
 <?php
-// logout.php
-// Script para cerrar sesión y redirigir al usuario al inicio
+// logout.php - Cerrar sesión y redirigir
 
 session_start();
 
-// Vaciar variables de sesión
+// Limpiar variables de sesión
 $_SESSION = [];
 
-// Borrar la cookie de sesión si existe
+// Borrar cookie de sesión si aplica
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(
@@ -16,12 +15,12 @@ if (ini_get("session.use_cookies")) {
         time() - 42000,
         $params["path"],
         $params["domain"],
-        $params["secure"],
-        $params["httponly"]
+        $params["secure"] ?? false,
+        $params["httponly"] ?? false
     );
 }
 
-// Destruir la sesión
+// Destruir sesión
 session_destroy();
 
 // Redirigir al inicio
