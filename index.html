@@ -42,6 +42,12 @@
         <input type="text" name="nombre" placeholder="Nombres y Apellidos" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
         <input type="email" name="correo" placeholder="Correo electrónico" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
         <input type="password" name="clave" placeholder="Contraseña" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
+        <select name="rol" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500">
+          <option value="" disabled selected>Seleccionar Rol</option>
+          <option value="cliente">Cliente</option>
+          <option value="empleado">Empleado</option>
+          <option value="administrador">Administrador</option>
+        </select>
         <button type="submit" id="btnRegistro" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 transition duration-200 shadow-md">
           Registrar
         </button>
@@ -79,10 +85,6 @@
       function showMessage(element, message, isSuccess) {
         element.textContent = message;
         element.className = `mt-4 text-center text-sm font-medium ${isSuccess ? 'text-green-600' : 'text-red-600'}`;
-        setTimeout(() => {
-          element.textContent = '';
-          element.className = 'mt-4 text-center text-sm font-medium';
-        }, 4000);
       }
 
       registroForm.addEventListener('submit', async (e) => {
@@ -119,9 +121,7 @@
           showMessage(loginMensaje, data.message, data.success);
           if (data.success && data.redirect) {
             loginForm.reset();
-            setTimeout(() => {
-              window.location.href = data.redirect;
-            }, 2000);
+            setTimeout(() => window.location.href = data.redirect, 1500);
           }
         } catch (err) {
           console.error(err);

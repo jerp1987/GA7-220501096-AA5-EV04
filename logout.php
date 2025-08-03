@@ -1,29 +1,40 @@
 <?php
-// logout.php - Cerrar sesión y redirigir
+// logout.php — Finaliza la sesión y responde según el contexto
 
-session_start();
+// Iniciar sesión si no está activa
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Limpiar variables de sesión
-$_SESSION = [];
+// Detectar si la solicitud espera JSON (API)
+$isApiRequest = isset($_SERVER['HTTP_ACCEPT']) && str_contains($_SERVER['HTTP_ACCEPT'], 'application/json');
 
-// Borrar cookie de sesión si aplica
-if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(
-        session_name(),
-        '',
-        time() - 42000,
-        $params["path"],
-        $params["domain"],
-        $params["secure"] ?? false,
-        $params["httponly"] ?? false
-    );
+// Permitir métodos GET y POST únicamente
+$method = $_SERVER["REQUEST_METHOD"];
+if (!in_array($method, ['GET', 'POST'])) {
+    http_response_code(405);
+    $response = ["success" => false, "message" => "❌ Método no permitido."];
+    echo $isApiRequest ? json_encode($response) : "❌ Método no permitido.";
+    exit();
 }
 
 // Destruir sesión
+$_SESSION = [];
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
 session_destroy();
 
-// Redirigir al inicio
-header("Location: index.html");
-exit();
+// Responder según el tipo de solicitud
+if ($isApiRequest) {
+    echo json_encode(["success" => true, "message" => "✅ Sesión cerrada correctamente."]);
+} else {
+    // Redirección en caso de navegador
+    header("Location: index.html");
+    exit();
+}
 ?>

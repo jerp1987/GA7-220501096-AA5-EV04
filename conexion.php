@@ -1,19 +1,32 @@
 <?php
+// conexión.php — Configuración de conexión a la base de datos MySQL
+
 $host = 'localhost';
 $usuario = 'root';
 $contrasena = '';
 $base_de_datos = 'crudusuario';
 
-$conn = new mysqli($host, $usuario, $contrasena, $base_de_datos);
+// Crear conexión usando mysqli orientado a objetos
+$conexion = new mysqli($host, $usuario, $contrasena, $base_de_datos);
 
-if ($conn->connect_errno) {
-    error_log("Error de conexión a la base de datos: " . $conn->connect_error);
-    die("❌ No se pudo conectar a la base de datos.");
+// Verificar conexión
+if ($conexion->connect_error) {
+    error_log("❌ Error de conexión MySQL: " . $conexion->connect_error);
+
+    // Mostrar mensaje JSON si es invocado desde web/API
+    if (php_sapi_name() !== 'cli') {
+        header('Content-Type: application/json');
+        echo json_encode([
+            "success" => false,
+            "message" => "❌ No se pudo conectar a la base de datos."
+        ]);
+        exit();
+    } else {
+        // Mostrar error en consola si se ejecuta por CLI
+        die("❌ Error de conexión en consola.");
+    }
 }
 
-$conn->set_charset("utf8mb4");
-$conexion = $conn; // para mantener el nombre estándar en tu sistema
+// Establecer conjunto de caracteres (recomendado para tildes y emojis)
+$conexion->set_charset("utf8mb4");
 ?>
-
-
-

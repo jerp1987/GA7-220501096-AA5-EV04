@@ -1,12 +1,18 @@
-Repositorio del proyecto CrudUsuarioPHP_Evidencia - GA7-220501096-AA5-EV01
+📁 Repositorio del Proyecto: CrudUsuarioPHP_Evidencia — GA7-220501096-AA5-EV03
+🔗 URL del repositorio:
+https://github.com/jerp1987/GA7-220501096-AA5-EV03
 
-URL del repositorio:
-https://github.com/jerp1987/CrudUsuarioPHP_Evidencia-GA7-220501096-AA5-EV01
+Este repositorio contiene el código fuente completo del sistema híbrido desarrollado como parte de la evidencia GA7-220501096-AA5-EV03 del proceso formativo SENA.
 
-Este repositorio contiene el código fuente completo del sistema de registro e inicio de sesión de usuarios desarrollado en PHP, JavaScript, HTML y Tailwind CSS, como parte de la evidencia final para el SENA.
+El proyecto incluye el diseño e implementación de servicios web API con PHP y MySQL, accesibles tanto desde formularios HTML como desde Postman, cumpliendo con los lineamientos de una API funcional.
 
-Incluye:
-- Formularios de registro e inicio de sesión
-- Conexión segura a base de datos MySQL
-- Dashboard protegido con sesión
-- Código comentado y estructurado
+Contenido principal:
+Endpoints funcionales para: registrar usuario, iniciar sesión, asignar cita, cancelar cita y generar facturas.
+
+Formularios HTML estilizados con Tailwind CSS y operaciones realizadas mediante fetch().
+
+Lógica backend optimizada para aceptar tanto FormData (HTML) como application/json (Postman).
+
+Validaciones, encriptación de contraseñas (password_hash) y protección por rol de acceso.
+
+Código estructurado, comentado y probado en entorno XAMPP.
