@@ -1,0 +1,45 @@
+# Archivos y carpetas de entorno local
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Configuración de XAMPP (no versionar bases de datos locales ni backups)
+xampp/
+htdocs/
+
+# Directorios de sistema o caché
+node_modules/
+vendor/
+.env
+.env.local
+.idea/
+.vscode/
+*.bak
+
+# Archivos generados por el sistema
+*.zip
+*.rar
+*.7z
+
+# Archivos de backup de editores
+*~
+*.swp
+*.swo
+*.bak
+*.old
+
+# Archivos de base de datos exportados
+*.sql
+*.sqlite
+
+# Subidas temporales o multimedia pesadas
+/uploads/
+*.jpg
+*.png
+*.mp4
+*.pdf
+*.docx
+
+# Evita subir archivos personales o confidenciales
+config.php
