@@ -1,45 +1,38 @@
-# Archivos y carpetas de entorno local
+# Ignorar archivos de sistema
 .DS_Store
 Thumbs.db
+
+# Ignorar configuración local de IDE/Editor
+.vscode/
+.idea/
+nbproject/
+
+# Ignorar archivos temporales
 *.log
 *.tmp
-
-# Configuración de XAMPP (no versionar bases de datos locales ni backups)
-xampp/
-htdocs/
-
-# Directorios de sistema o caché
-node_modules/
-vendor/
-.env
-.env.local
-.idea/
-.vscode/
 *.bak
+*.swp
 
-# Archivos generados por el sistema
+# Ignorar cachés de PHP
+*.cache
+cache/
+
+# Ignorar archivos de entorno (variables locales)
+.env
+
+# Ignorar configuraciones específicas de XAMPP
+xampp-control.ini
+mysql/data/
+apache/logs/
+php/logs/
+
+# Ignorar archivos generados por pruebas
 *.zip
 *.rar
-*.7z
 
-# Archivos de backup de editores
-*~
-*.swp
-*.swo
-*.bak
-*.old
+# Ignorar subidas temporales
+uploads/temp/
+uploads/tmp/
 
-# Archivos de base de datos exportados
-*.sql
-*.sqlite
-
-# Subidas temporales o multimedia pesadas
-/uploads/
-*.jpg
-*.png
-*.mp4
-*.pdf
-*.docx
-
-# Evita subir archivos personales o confidenciales
-config.php
+# Ignorar node_modules (si en un futuro agregas un frontend con npm)
+node_modules/
