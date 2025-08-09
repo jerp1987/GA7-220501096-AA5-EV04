@@ -1,17 +1,90 @@
 <?php
 session_start();
 require_once 'conexion.php';
-header('Content-Type: text/html; charset=UTF-8');
 
-// Validar sesión
-if (!isset($_SESSION['user_id']) || !in_array($_SESSION['user_rol'], ['cliente', 'empleado', 'administrador'])) {
-    header("Location: index.html");
+// ── Detección de modo JSON ─────────────────────────────────────────────────────
+$accept   = $_SERVER['HTTP_ACCEPT'] ?? '';
+$wantJson = (isset($_GET['format']) && $_GET['format'] === 'json')
+         || isset($_GET['api'])
+         || stripos($accept, 'application/json') !== false;
+
+// ── Token API (bypass de sesión solo para modo API/JSON) ──────────────────────
+$apiToken       = $_GET['api_token'] ?? '';
+$apiTokenValido = ($apiToken === 'dev-token-123'); // cámbialo si quieres
+
+// ── Autorización ──────────────────────────────────────────────────────────────
+$sesionValida = (isset($_SESSION['user_id']) && in_array($_SESSION['user_rol'], ['cliente','empleado','administrador']));
+
+if (!$sesionValida && !$apiTokenValido) {
+    if ($wantJson) {
+        header('Content-Type: application/json; charset=UTF-8');
+        http_response_code(401);
+        echo json_encode(["success" => false, "message" => "No autorizado. Inicia sesión o usa api_token."]);
+        exit();
+    } else {
+        header("Location: index.html");
+        exit();
+    }
+}
+
+// Si hay sesión, usamos sus datos; con token asumimos acceso API genérico
+$userRol   = $_SESSION['user_rol']   ?? 'api';
+$userName  = htmlspecialchars($_SESSION['user_name'] ?? 'API', ENT_QUOTES, 'UTF-8');
+$userEmail = $_SESSION['user_email'] ?? '';
+
+// ── Consulta según rol (LEFT JOIN con facturas) ───────────────────────────────
+if ($sesionValida && $userRol === 'cliente') {
+    $stmt = $conexion->prepare("
+        SELECT c.*, f.id AS factura_id
+        FROM citas c
+        LEFT JOIN facturas f ON f.cita_id = c.id
+        WHERE c.correo = ?
+        ORDER BY c.fecha DESC
+    ");
+    $stmt->bind_param("s", $userEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    $result = $conexion->query("
+        SELECT c.*, f.id AS factura_id
+        FROM citas c
+        LEFT JOIN facturas f ON f.cita_id = c.id
+        ORDER BY c.fecha DESC
+    ");
+}
+
+// ── Normalización de datos (sirve para JSON y HTML) ───────────────────────────
+$citas = [];
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $citas[] = [
+            'id'          => (int)$row['id'],
+            'nombres'     => $row['nombres'],
+            'apellidos'   => $row['apellidos'],
+            'cedula'      => $row['cedula'],
+            'correo'      => $row['correo'],
+            'celular'     => $row['celular'],
+            'servicios'   => $row['servicios'],
+            'descripcion' => $row['descripcion'],
+            'fecha'       => $row['fecha'],
+            'factura_id'  => isset($row['factura_id']) ? (int)$row['factura_id'] : null,
+        ];
+    }
+}
+
+// ── Respuesta API (JSON) ──────────────────────────────────────────────────────
+if ($wantJson) {
+    header('Content-Type: application/json; charset=UTF-8');
+    echo json_encode([
+        "success" => true,
+        "count"   => count($citas),
+        "data"    => $citas
+    ], JSON_UNESCAPED_UNICODE);
+    $conexion->close();
     exit();
 }
 
-$userRol = $_SESSION['user_rol'];
-$userName = htmlspecialchars($_SESSION['user_name'], ENT_QUOTES, 'UTF-8');
-$userEmail = $_SESSION['user_email'];
+// ── Vista HTML (modo por defecto con sesión) ──────────────────────────────────
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,7 +96,7 @@ $userEmail = $_SESSION['user_email'];
 <body class="bg-gray-100 font-sans p-6">
   <div class="max-w-6xl mx-auto bg-white p-8 rounded-lg shadow">
     <h1 class="text-2xl font-bold text-center text-indigo-700 mb-2">
-      <?= $userRol === 'cliente' ? 'Mis Citas Agendadas' : 'Citas Registradas' ?>
+      <?= ($sesionValida && $userRol === 'cliente') ? 'Mis Citas Agendadas' : 'Citas Registradas' ?>
     </h1>
     <p class="text-center text-gray-600 mb-6">Bienvenido, <strong><?= $userName ?></strong></p>
 
@@ -40,33 +113,27 @@ $userEmail = $_SESSION['user_email'];
           </tr>
         </thead>
         <tbody class="bg-white text-gray-700">
-          <?php
-          if ($userRol === 'cliente') {
-              $stmt = $conexion->prepare("SELECT * FROM citas WHERE correo = ? ORDER BY fecha DESC");
-              $stmt->bind_param("s", $userEmail);
-              $stmt->execute();
-              $result = $stmt->get_result();
-          } else {
-              $result = $conexion->query("SELECT * FROM citas ORDER BY fecha DESC");
-          }
-
-          if ($result && $result->num_rows > 0):
-              while ($row = $result->fetch_assoc()):
-          ?>
-            <tr>
-              <td class="border px-4 py-2"><?= $row['id'] ?></td>
-              <td class="border px-4 py-2"><?= htmlspecialchars($row['nombres'] . ' ' . $row['apellidos']) ?></td>
-              <td class="border px-4 py-2"><?= htmlspecialchars($row['cedula']) ?></td>
-              <td class="border px-4 py-2"><?= htmlspecialchars($row['servicios']) ?></td>
-              <td class="border px-4 py-2"><?= date('d/m/Y H:i', strtotime($row['fecha'])) ?></td>
-              <td class="border px-4 py-2 text-center">
-                <a href="factura.php?id=<?= $row['id'] ?>" target="_blank"
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
-                  Ver Factura
-                </a>
-              </td>
-            </tr>
-          <?php endwhile; else: ?>
+          <?php if (count($citas) > 0): ?>
+            <?php foreach ($citas as $cita): ?>
+              <tr>
+                <td class="border px-4 py-2"><?= $cita['id'] ?></td>
+                <td class="border px-4 py-2"><?= htmlspecialchars($cita['nombres'].' '.$cita['apellidos']) ?></td>
+                <td class="border px-4 py-2"><?= htmlspecialchars($cita['cedula']) ?></td>
+                <td class="border px-4 py-2"><?= htmlspecialchars($cita['servicios']) ?></td>
+                <td class="border px-4 py-2"><?= date('d/m/Y H:i', strtotime($cita['fecha'])) ?></td>
+                <td class="border px-4 py-2 text-center">
+                  <?php if (!empty($cita['factura_id'])): ?>
+                    <a href="factura.php?id=<?= $cita['factura_id'] ?>" target="_blank"
+                       class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                      Ver Factura
+                    </a>
+                  <?php else: ?>
+                    <span class="text-gray-500">Sin factura</span>
+                  <?php endif; ?>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
             <tr>
               <td colspan="6" class="px-4 py-4 text-center text-gray-500">No hay citas registradas.</td>
             </tr>
@@ -75,14 +142,16 @@ $userEmail = $_SESSION['user_email'];
       </table>
     </div>
 
-    <div class="mt-6 text-center">
-      <a href="<?=
-        $userRol === 'cliente' ? 'modulo_cliente.php' :
-        ($userRol === 'empleado' ? 'modulo_empleado.php' : 'modulo_administrador.php');
-      ?>" class="text-blue-600 hover:underline">
-        Volver al panel
-      </a>
-    </div>
+    <?php if ($sesionValida): ?>
+      <div class="mt-6 text-center">
+        <a href="<?=
+          $userRol === 'cliente' ? 'modulo_cliente.php' :
+          ($userRol === 'empleado' ? 'modulo_empleado.php' : 'modulo_administrador.php');
+        ?>" class="text-blue-600 hover:underline">
+          Volver al panel
+        </a>
+      </div>
+    <?php endif; ?>
   </div>
 </body>
 </html>
