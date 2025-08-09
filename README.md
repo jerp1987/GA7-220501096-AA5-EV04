@@ -191,3 +191,79 @@ Esta colección está configurada para enviar datos en **formato JSON** y **Form
 📚 Licencia
 Proyecto con fines educativos — Proceso formativo SENA.
 Sin licencia comercial.
+
+Endpoints API – Proyecto CrudUsuarioPHP
+Este sistema es híbrido: funciona tanto mediante vistas HTML con autenticación por sesión como a través de endpoints API que aceptan y devuelven datos en formato JSON.
+
+Autenticación para API
+Todas las peticiones a la API requieren:
+
+Sesión activa o
+
+api_token válido (dev-token-123 para desarrollo).
+
+Formato de Respuesta JSON
+Cada endpoint devuelve:
+
+Éxito:
+
+json
+Copiar
+Editar
+{
+  "success": true,
+  "count": 0,
+  "data": []
+}
+Error:
+
+json
+Copiar
+Editar
+{
+  "success": false,
+  "message": "Descripción del error"
+}
+1. Listar Citas
+Método: GET
+URL:
+
+bash
+Copiar
+Editar
+http://localhost/CrudUsuarioPHP/listar_citas.php?format=json&api_token=dev-token-123
+Cabeceras recomendadas:
+
+bash
+Copiar
+Editar
+Accept: application/json
+Ejemplo de respuesta exitosa:
+
+json
+Copiar
+Editar
+{
+  "success": true,
+  "count": 2,
+  "data": [
+    {
+      "id": 1,
+      "nombres": "Juan",
+      "apellidos": "Pérez",
+      "cedula": "12345678",
+      "correo": "juan@correo.com",
+      "celular": "3001234567",
+      "servicios": "Mecánica general",
+      "descripcion": "Cambio de aceite",
+      "fecha": "2025-08-08 10:30:00",
+      "factura_id": 5
+    }
+  ]
+}
+Notas de Seguridad
+El token dev-token-123 solo debe usarse en entornos de desarrollo.
+
+En producción se debe reemplazar por un token seguro y almacenarlo de forma protegida.
+
+No incluir el api_token en vistas HTML públicas.
