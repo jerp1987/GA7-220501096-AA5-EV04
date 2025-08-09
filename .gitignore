@@ -1,38 +1,48 @@
-# Ignorar archivos de sistema
+# Archivos del sistema
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Ignorar configuración local de IDE/Editor
+# Configuración de IDEs
 .vscode/
 .idea/
 nbproject/
 
-# Ignorar archivos temporales
+# Archivos temporales / caché
 *.log
 *.tmp
+*.cache
 *.bak
 *.swp
 
-# Ignorar cachés de PHP
-*.cache
-cache/
+# Archivos de sistema en PHP
+vendor/
+composer.lock
 
-# Ignorar archivos de entorno (variables locales)
+# Configuración sensible
 .env
+.env.local
+.env.*.local
 
-# Ignorar configuraciones específicas de XAMPP
-xampp-control.ini
-mysql/data/
-apache/logs/
-php/logs/
+# Archivos de sistema de XAMPP
+php_errors.log
 
-# Ignorar archivos generados por pruebas
+# Archivos de sistema de MySQL
+mysql/
+
+# Archivos generados automáticamente
 *.zip
+*.tar
+*.gz
 *.rar
 
-# Ignorar subidas temporales
-uploads/temp/
-uploads/tmp/
+# Archivos de respaldo
+*.sql
+*.sql.gz
 
-# Ignorar node_modules (si en un futuro agregas un frontend con npm)
+# Carpeta de subidas (si aplica)
+uploads/
+
+# Node (si se usa para frontend)
 node_modules/
+package-lock.json
