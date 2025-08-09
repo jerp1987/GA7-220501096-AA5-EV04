@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "bc6d54be-478d-4d34-9347-ad3b7ff53e4c",
+		"name": "CrudPHP_GA7_AA5_EV04",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43851747",
+		"_collection_link": "https://warped-zodiac-5409100.postman.co/workspace/Jhonn-Edison-Romero-Pe%C3%B1a's-Work~31b09931-f3b0-419a-81fe-1cea3a191398/collection/43851747-bc6d54be-478d-4d34-9347-ad3b7ff53e4c?action=share&source=collection_link&creator=43851747"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/CrudUsuarioPHP/usuarios.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"CrudUsuarioPHP",
+						"usuarios.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/CrudUsuarioPHP/usuarios.php?id=18",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/CrudUsuarioPHP/usuarios.php?id=18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"CrudUsuarioPHP",
+						"usuarios.php"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/CrudUsuarioPHP/usuarios.php",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Empleado Postman\",\r\n  \"correo\": \"empleadopostman@gmail.com\",\r\n  \"clave\": \"123456\",\r\n  \"rol\": \"empleado\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/CrudUsuarioPHP/usuarios.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"CrudUsuarioPHP",
+						"usuarios.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/CrudUsuarioPHP/usuarios.php",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 5,\r\n  \"nombre\": \"Empleado Postman Actualizado\",\r\n  \"correo\": \"empleadoactualizado@gmail.com\",\r\n  \"rol\": \"empleado\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/CrudUsuarioPHP/usuarios.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"CrudUsuarioPHP",
+						"usuarios.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/CrudUsuarioPHP/usuarios.php",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 26\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/CrudUsuarioPHP/usuarios.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"CrudUsuarioPHP",
+						"usuarios.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/CrudUsuarioPHP/citas.php",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombres\": \"Cliente Postman\",\r\n  \"apellidos\": \"Prueba\",\r\n  \"cedula\": \"1122334455\",\r\n  \"correo\": \"cliente@postman.com\",\r\n  \"telefono\": \"3001234567\",\r\n  \"servicios\": [\"Mecánica general\", \"Diagnóstico especializado\"],\r\n  \"descripcion\": \"Prueba creada desde Postman\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/CrudUsuarioPHP/citas.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"CrudUsuarioPHP",
+						"citas.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/CrudUsuarioPHP/factura.php?id=5&format=json&api_token=dev-token-123",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/CrudUsuarioPHP/factura.php?id=5&format=json&api_token=dev-token-123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"CrudUsuarioPHP",
+						"factura.php"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "api_token",
+							"value": "dev-token-123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/CrudUsuarioPHP/listar_citas.php?format=json&api_token=dev-token-123",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/CrudUsuarioPHP/listar_citas.php?format=json&api_token=dev-token-123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"CrudUsuarioPHP",
+						"listar_citas.php"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "api_token",
+							"value": "dev-token-123"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

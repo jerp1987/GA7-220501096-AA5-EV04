@@ -169,6 +169,25 @@ Protección de rutas API con autenticación y CORS.
 Jhonn Edison Romero Peña
 🔗 Repositorio del proyecto
 
+---
+
+## 📬 Colección Postman
+
+Para realizar pruebas de la API de forma rápida, se incluye la colección **CrudPHP_GA7_AA5_EV04.postman_collection.json** en la carpeta raíz del proyecto.
+
+### Cómo importar en Postman
+1. Abrir Postman.
+2. Ir a `File > Import`.
+3. Seleccionar el archivo `CrudPHP_GA7_AA5_EV04.postman_collection.json`.
+4. Dentro de la colección encontrarás solicitudes para:
+   - **CRUD de usuarios** (`usuarios.php`)
+   - **Gestión de citas** (`citas.php`)
+   - **Generación y visualización de facturas** (`factura.php`)
+   - **Listado de citas** (`listar_citas.php`)
+
+Esta colección está configurada para enviar datos en **formato JSON** y **FormData**, de acuerdo con el modo híbrido del sistema.
+
+
 📚 Licencia
 Proyecto con fines educativos — Proceso formativo SENA.
 Sin licencia comercial.
